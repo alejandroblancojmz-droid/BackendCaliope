@@ -34,7 +34,7 @@ public class GenresService {
 
     public Genres createGenres(GenresRequest genresRequest) {
         Genres genres = new Genres();
-        if (genresRequest.name() != null) genres.setName(genresRequest.name());
+        if (genresRequest.genre() != null) genres.setGenre(genresRequest.genre());
         return genresRepository.save(genres);
     }
 
@@ -50,7 +50,7 @@ public class GenresService {
         Genres savedGenres = genresRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Genre not found!")
         );
-        if (updatedGenres.getName() != null) savedGenres.setName(updatedGenres.getName());
+        if (updatedGenres.getGenre() != null) savedGenres.setGenre(updatedGenres.getGenre());
 
         return genresRepository.save(savedGenres);
     }

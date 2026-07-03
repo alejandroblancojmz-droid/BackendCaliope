@@ -27,6 +27,6 @@ public class Genres {
 
     @NotBlank
     @Size(min=1, max=45)
-    private String name;
+    private String genre;
 
 }

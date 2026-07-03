@@ -1,4 +1,4 @@
 package org.generation.caliope.dto;
 
-public record GenresRequest(String name) {
+public record GenresRequest(Long idGenre, String genre) {
 }
