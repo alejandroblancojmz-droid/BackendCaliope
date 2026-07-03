@@ -1,6 +1,10 @@
 package org.generation.caliope.service;
 
+import org.generation.caliope.controller.StoriesController;
+import org.generation.caliope.dto.StoriesRequest;
+import org.generation.caliope.model.Stories;
 import org.generation.caliope.model.Users;
+import org.generation.caliope.repository.StoriesRepository;
 import org.generation.caliope.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +15,13 @@ import java.util.List;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-
     @Autowired
-    public UsersService(UsersRepository usersRepository) {
+    private final StoriesRepository storiesRepository;
+
+
+    public UsersService(UsersRepository usersRepository, StoriesRepository storiesRepository) {
         this.usersRepository = usersRepository;
+        this.storiesRepository = storiesRepository;
     }
 
     public List<Users> getAllUsers() {
@@ -56,5 +63,31 @@ public class UsersService {
         return usersRepository.save(savedUsers);
     }
 
-
+    public Users addStoriesUser(Long usersId, StoriesRequest storiesRequest) {
+        Users savedUsers = usersRepository.findById(usersId).orElseThrow(
+                () -> new IllegalArgumentException("Usuario no encontrado")
+        );
+        //2. Si existe el usuario crea una storie vacia
+        Stories stories = new Stories();
+        /*
+          3. Verificamos la informmación que viene en la storie.request
+          si viene la información se la asignamos a la storie
+         */
+        if (storiesRequest.title() != null) stories.setTitle(storiesRequest.title());
+        if (storiesRequest.description() != null) stories.setDescription(storiesRequest.description());
+        if (storiesRequest.picture_front_pages() != null)
+            stories.setPicture_front_pages(storiesRequest.picture_front_pages());
+        if (storiesRequest.file_pdf() != null) stories.setFile_pdf(storiesRequest.file_pdf());
+        if (storiesRequest.status() != null) stories.setStatus(storiesRequest.status());
+        if (storiesRequest.created_date() != null) stories.setCreated_date(storiesRequest.created_date());
+        if (storiesRequest.published_date() != null) stories.setPublished_date(storiesRequest.published_date());
+        //4.Asignando el artista al que pertenece la storie
+        stories.setUsers(savedUsers);
+        //5.Guardando la storie
+        storiesRepository.save(stories);
+        //6.Actualizando la lista de stories del usuario
+        savedUsers.getStories().add(stories);
+        //7.Actualizando el usuario con sus stories en la base de datos
+        return usersRepository.save(savedUsers);
+    }
 }

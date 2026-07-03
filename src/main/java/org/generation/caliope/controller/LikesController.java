@@ -1,4 +1,4 @@
-package org.generation.caliope.controller;
-
-public class LikesController {
-}
+//package org.generation.caliope.controller;
+//
+//public class LikesController {
+//}
