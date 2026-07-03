@@ -1,5 +1,7 @@
 package org.generation.caliope.controller;
 
+import org.generation.caliope.dto.StoriesRequest;
+import org.generation.caliope.model.Stories;
 import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.UsersRepository;
 import org.generation.caliope.service.UsersService;
@@ -43,5 +45,7 @@ public class UsersController {
     public Users updateUserById(@PathVariable("userId") Long id, @RequestBody Users updatedUser) {
         return usersService.updateUsersById(id, updatedUser);
     }
+
+
 
 }
