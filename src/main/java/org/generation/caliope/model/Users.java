@@ -60,6 +60,10 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stories> stories;
 
+    //Declarando la relación del lado del dueño
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reviews> reviews;
+
 
 
 }
