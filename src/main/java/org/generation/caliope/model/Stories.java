@@ -11,9 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -46,5 +48,10 @@ public class Stories {
     @JoinColumn(name = "stories_id", nullable = false)
     @JsonIgnore
     private Users users;
+
+    //Relación con la biblioteca (historias guardadas por usuarios)
+    @OneToMany(mappedBy = "stories", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Library> libraryEntries;
 
 }

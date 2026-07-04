@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -64,7 +65,10 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reviews> reviews;
 
-
+    //Relación con la biblioteca para historias guardadas
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Library> libraryEntries;
 
 }
 
