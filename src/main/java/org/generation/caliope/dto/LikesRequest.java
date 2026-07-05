@@ -1,4 +1,8 @@
 package org.generation.caliope.dto;
 
-public record LikesRequest() {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public record LikesRequest(Long idStories, LocalDate created_date) {
 }
+
