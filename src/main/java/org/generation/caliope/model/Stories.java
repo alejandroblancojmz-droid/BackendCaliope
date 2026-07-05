@@ -54,4 +54,9 @@ public class Stories {
     @JsonIgnore
     private List<Library> libraryEntries;
 
+    //Declaracion de Padre -> Likes
+    @OneToMany(mappedBy = "stories", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Likes> getlikes;
+
+
 }
