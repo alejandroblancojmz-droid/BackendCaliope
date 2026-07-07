@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/stories")// http://localhost:8080/api/stories
 @AllArgsConstructor
 public class StoriesController {
