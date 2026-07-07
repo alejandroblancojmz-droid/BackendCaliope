@@ -36,21 +36,16 @@ public class Users {
     @Email
     private String email;
 
-
     private LocalDate birthday;
 
     //@NotBlank
     //private String pronouns;
-
-
     private String bio;
-
 
     private String picture_avatar;
 
     //@NotBlank
     //private String rol;
-
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$")
     private String password;

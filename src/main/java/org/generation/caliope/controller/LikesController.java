@@ -11,9 +11,10 @@ import java.util.List;
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
-
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/stories/likes") // http://localhost:8080/api/stories/likes
 @AllArgsConstructor
+
 public class LikesController {
 
     private final LikesService likesService;
