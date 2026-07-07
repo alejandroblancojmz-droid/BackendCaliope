@@ -1,28 +1,28 @@
 package org.generation.caliope.service;
 
+import lombok.AllArgsConstructor;
 import org.generation.caliope.controller.StoriesController;
+import org.generation.caliope.dto.LoginRequest;
 import org.generation.caliope.dto.StoriesRequest;
 import org.generation.caliope.model.Stories;
 import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.StoriesRepository;
 import org.generation.caliope.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UsersService {
-
+    private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
-    @Autowired
     private final StoriesRepository storiesRepository;
 
 
-    public UsersService(UsersRepository usersRepository, StoriesRepository storiesRepository) {
-        this.usersRepository = usersRepository;
-        this.storiesRepository = storiesRepository;
-    }
+
 
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
@@ -35,6 +35,9 @@ public class UsersService {
     }
 
     public Users createUsers(Users users) {
+        String encriptedPassword = passwordEncoder.encode(users.getPassword());
+        users.setPassword(encriptedPassword);
+        usersRepository.save(users);
         return usersRepository.save(users);
     }
 
@@ -90,4 +93,16 @@ public class UsersService {
         //7.Actualizando el usuario con sus stories en la base de datos
         return usersRepository.save(savedUsers);
     }
+
+    public boolean loginUser(LoginRequest loginRequest){
+
+        Users savedUser = usersRepository.findByEmail(loginRequest.email())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Credenciales incorrectas"));
+
+        return passwordEncoder.matches(
+                loginRequest.password(),
+                savedUser.getPassword());
+    }
+
 }

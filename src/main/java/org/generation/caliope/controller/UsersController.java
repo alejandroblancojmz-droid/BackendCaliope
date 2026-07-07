@@ -1,13 +1,17 @@
 package org.generation.caliope.controller;
 
+import org.generation.caliope.dto.LoginRequest;
+import org.generation.caliope.dto.LoginResponse;
 import org.generation.caliope.dto.StoriesRequest;
 import org.generation.caliope.model.Stories;
 import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.UsersRepository;
 import org.generation.caliope.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -47,6 +51,13 @@ public class UsersController {
         return usersService.updateUsersById(id, updatedUser);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestBody LoginRequest loginRequest){
+
+        boolean token = usersService.loginUser(loginRequest);
+
+        return ResponseEntity.ok(token);
+    }
 
 
 }
