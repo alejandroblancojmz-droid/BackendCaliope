@@ -2,9 +2,13 @@ package org.generation.caliope.service;
 
 import lombok.AllArgsConstructor;
 import org.generation.caliope.dto.StoriesRequest;
+import org.generation.caliope.model.Genres;
 import org.generation.caliope.model.Stories;
+import org.generation.caliope.model.StoryGenres;
 import org.generation.caliope.model.Users;
+import org.generation.caliope.repository.GenresRepository;
 import org.generation.caliope.repository.StoriesRepository;
+import org.generation.caliope.repository.StoryGenresRepository;
 import org.generation.caliope.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
@@ -18,6 +22,8 @@ import java.util.List;
 public class StoriesService {
     private final StoriesRepository storiesRepository;
     private final UsersRepository usersRepository;
+    private final StoryGenresRepository storyGenresRepository;
+    private final GenresRepository genresRepository;
 
     public Stories addStories(StoriesRequest storiesRequest){
 
@@ -44,6 +50,17 @@ public class StoriesService {
         users.getStories().add(newStorie);
         storiesRepository.save(newStorie);
         usersRepository.save(users);
+
+        if (storiesRequest.genres() != null) {
+            for (Long genreId : storiesRequest.genres()) {
+                Genres genre = genresRepository.findById(genreId)
+                        .orElseThrow(() -> new IllegalArgumentException("Género no encontrado: " + genreId));
+                StoryGenres storyGenre = new StoryGenres();
+                storyGenre.setStory(newStorie);
+                storyGenre.setGenre(genre);
+                storyGenresRepository.save(storyGenre);
+            }
+        }
 
         return newStorie;
     }
