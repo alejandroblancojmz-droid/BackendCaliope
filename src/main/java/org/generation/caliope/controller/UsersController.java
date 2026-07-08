@@ -60,5 +60,11 @@ public class UsersController {
         return ResponseEntity.ok(new LoginResponse(token, user.getId()));
     }
 
+    //
+    @GetMapping("/me")
+    public Users getMyProfile() {
+        return usersService.getAuthenticatedUser();
+    }
+
 
 }
