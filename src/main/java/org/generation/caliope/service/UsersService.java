@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -62,7 +63,7 @@ public class UsersService {
         if (updatedUsers.getBio() != null) savedUsers.setBio(updatedUsers.getBio());
         if (updatedUsers.getPicture_avatar() != null) savedUsers.setPicture_avatar(updatedUsers.getPicture_avatar());
         if (updatedUsers.getPassword() != null) savedUsers.setPassword(updatedUsers.getPassword());
-        if (updatedUsers.getCreated_at() != null) savedUsers.setCreated_at(updatedUsers.getCreated_at());
+        savedUsers.setCreated_at(LocalDateTime.now());
 
         return usersRepository.save(savedUsers);
     }
@@ -83,8 +84,8 @@ public class UsersService {
             stories.setPicture_front_pages(storiesRequest.picture_front_pages());
         if (storiesRequest.file_pdf() != null) stories.setFile_pdf(storiesRequest.file_pdf());
         if (storiesRequest.status() != null) stories.setStatus(storiesRequest.status());
-        if (storiesRequest.created_date() != null) stories.setCreated_date(storiesRequest.created_date());
-        if (storiesRequest.published_date() != null) stories.setPublished_date(storiesRequest.published_date());
+        if (storiesRequest.created_date() != null) stories.setCreated_date(LocalDateTime.now());
+        if (storiesRequest.published_date() != null) stories.setPublished_date(LocalDateTime.now());
         //4.Asignando el artista al que pertenece la storie
         stories.setUsers(savedUsers);
         //5.Guardando la storie
@@ -109,6 +110,13 @@ public class UsersService {
         }
 
         return jwtService.generateToken(savedUser);
+    }
+
+    public Users findByEmail(String email){
+
+        return usersRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Usuario no encontrado"));
     }
 
 }

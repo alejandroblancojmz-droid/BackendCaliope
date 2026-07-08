@@ -7,7 +7,10 @@ import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.StoriesRepository;
 import org.generation.caliope.repository.UsersRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,26 +19,32 @@ public class StoriesService {
     private final StoriesRepository storiesRepository;
     private final UsersRepository usersRepository;
 
-
-
     public Stories addStories(StoriesRequest storiesRequest){
-        Users users = usersRepository.findById(storiesRequest.idUsers()).orElseThrow(
-                () -> new IllegalArgumentException("No existe el usuario")
-        );
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        Users users = usersRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Usuario no encontrado"));
+
         Stories newStorie = new Stories();
 
         if(storiesRequest.title() != null) newStorie.setTitle(storiesRequest.title());
         if(storiesRequest.description()!= null) newStorie.setDescription(storiesRequest.description());
-        if(storiesRequest.picture_front_pages()!= null ) newStorie.setPicture_front_pages(storiesRequest.picture_front_pages());
+        if(storiesRequest.picture_front_pages()!= null) newStorie.setPicture_front_pages(storiesRequest.picture_front_pages());
         if(storiesRequest.file_pdf() != null) newStorie.setFile_pdf(storiesRequest.file_pdf());
         if(storiesRequest.status() != null) newStorie.setStatus(storiesRequest.status());
-        if(storiesRequest.created_date() != null) newStorie.setCreated_date(storiesRequest.created_date());
-        if(storiesRequest.published_date() != null) newStorie.setPublished_date(storiesRequest.published_date());
+        newStorie.setCreated_date(LocalDateTime.now());
+        newStorie.setPublished_date(LocalDateTime.now());
 
         newStorie.setUsers(users);
         users.getStories().add(newStorie);
         storiesRepository.save(newStorie);
         usersRepository.save(users);
+
         return newStorie;
     }
 
@@ -48,7 +57,6 @@ public class StoriesService {
                 () -> new IllegalArgumentException("Historia no encontrada :p")
         );
     }
-
 
     public Stories deleteUserById(Long id){
         Stories obj = storiesRepository.findById(id).orElseThrow(
