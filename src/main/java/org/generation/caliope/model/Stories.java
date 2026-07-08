@@ -15,6 +15,7 @@ import lombok.Setter;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -39,9 +40,9 @@ public class Stories {
 
     private String status;
 
-    private LocalDate created_date;
+    private LocalDateTime created_date;
 
-    private LocalDate published_date;
+    private LocalDateTime published_date;
 
     //Declacarion del hijo
     @ManyToOne

@@ -55,10 +55,9 @@ public class UsersController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
-
+        Users user = usersService.findByEmail(loginRequest.email());
         String token = usersService.loginUser(loginRequest);
-
-        return ResponseEntity.ok(new LoginResponse(token));
+        return ResponseEntity.ok(new LoginResponse(token, user.getId()));
     }
 
 

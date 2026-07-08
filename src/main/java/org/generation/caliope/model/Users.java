@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -50,7 +51,7 @@ public class Users {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$")
     private String password;
 
-    private LocalDate created_at;
+    private LocalDateTime created_at;
 
     //Declarando la relación del lado del dueño
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
