@@ -9,6 +9,8 @@ import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.StoriesRepository;
 import org.generation.caliope.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -119,4 +121,15 @@ public class UsersService {
                         new IllegalArgumentException("Usuario no encontrado"));
     }
 
+
+    public Users getAuthenticatedUser() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        return usersRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    }
 }
