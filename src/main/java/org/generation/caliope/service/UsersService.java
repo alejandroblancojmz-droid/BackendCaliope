@@ -20,6 +20,7 @@ public class UsersService {
     private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
     private final StoriesRepository storiesRepository;
+    private final JwtService jwtService;
 
 
 
@@ -94,15 +95,20 @@ public class UsersService {
         return usersRepository.save(savedUsers);
     }
 
-    public boolean loginUser(LoginRequest loginRequest){
+    public String loginUser(LoginRequest loginRequest){
 
         Users savedUser = usersRepository.findByEmail(loginRequest.email())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Credenciales incorrectas"));
 
-        return passwordEncoder.matches(
+        if (!passwordEncoder.matches(
                 loginRequest.password(),
-                savedUser.getPassword());
+                savedUser.getPassword())) {
+
+            throw new IllegalArgumentException("Credenciales incorrectas");
+        }
+
+        return jwtService.generateToken(savedUser);
     }
 
 }

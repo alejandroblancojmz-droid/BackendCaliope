@@ -8,6 +8,7 @@ import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.UsersRepository;
 import org.generation.caliope.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,12 +52,13 @@ public class UsersController {
         return usersService.updateUsersById(id, updatedUser);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
 
-        boolean token = usersService.loginUser(loginRequest);
+        String token = usersService.loginUser(loginRequest);
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 
 
