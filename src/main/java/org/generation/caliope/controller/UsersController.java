@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -64,6 +66,14 @@ public class UsersController {
     @GetMapping("/me")
     public Users getMyProfile() {
         return usersService.getAuthenticatedUser();
+    }
+
+    @PostMapping(path = "{userId}/avatar")
+    public Users updateAvatar(
+            @PathVariable("userId") Long id,
+            @RequestParam("avatar") MultipartFile avatar
+    ) throws IOException {
+        return usersService.updateAvatar(id, avatar);
     }
 
 

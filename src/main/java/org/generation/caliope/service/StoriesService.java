@@ -13,9 +13,15 @@ import org.generation.caliope.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +30,13 @@ public class StoriesService {
     private final UsersRepository usersRepository;
     private final StoryGenresRepository storyGenresRepository;
     private final GenresRepository genresRepository;
+    private final FileStorageService fileStorageService;
 
-    public Stories addStories(StoriesRequest storiesRequest){
+    // Directorio donde se guardarán los archivos
+    private static final String UPLOAD_DIR = "uploads/";
+
+
+    public Stories addStories(StoriesRequest storiesRequest)throws IOException {
 
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
@@ -40,11 +51,37 @@ public class StoriesService {
 
         if(storiesRequest.title() != null) newStorie.setTitle(storiesRequest.title());
         if(storiesRequest.description()!= null) newStorie.setDescription(storiesRequest.description());
-        if(storiesRequest.picture_front_pages()!= null) newStorie.setPicture_front_pages(storiesRequest.picture_front_pages());
-        if(storiesRequest.file_pdf() != null) newStorie.setFile_pdf(storiesRequest.file_pdf());
         if(storiesRequest.status() != null) newStorie.setStatus(storiesRequest.status());
         newStorie.setCreated_date(LocalDateTime.now());
         newStorie.setPublished_date(LocalDateTime.now());
+
+
+        // Procesar archivos
+        MultipartFile pictureFile = storiesRequest.picture_front_pages();
+        MultipartFile pdfFile = storiesRequest.file_pdf();
+
+        // Crear directorio si no existe
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+
+
+        // Guardar portada
+        if (pictureFile != null && !pictureFile.isEmpty()) {
+            String pictureFileName = UUID.randomUUID().toString() + "_" + pictureFile.getOriginalFilename();
+            Path picturePath = uploadPath.resolve(pictureFileName);
+            Files.copy(pictureFile.getInputStream(), picturePath);
+            newStorie.setPicture_front_pages(pictureFileName);
+            System.out.println("Portada guardada: " + pictureFileName);
+        }
+
+        // Guardar PDF
+        if (pdfFile != null && !pdfFile.isEmpty()) {
+            String pdfFileName = UUID.randomUUID().toString() + "_" + pdfFile.getOriginalFilename();
+            Path pdfPath = uploadPath.resolve(pdfFileName);
+            Files.copy(pdfFile.getInputStream(), pdfPath);
+            newStorie.setFile_pdf(pdfFileName);
+            System.out.println("PDF guardado: " + pdfFileName);
+        }
+
 
         newStorie.setUsers(users);
         users.getStories().add(newStorie);
