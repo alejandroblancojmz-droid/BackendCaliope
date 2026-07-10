@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Perfil</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="../Styles/globales.css" />
+    <link rel="stylesheet" href="../Styles/menu.css" />
+    <link rel="stylesheet" href="../Styles/perfil.css" />
+    <link rel="stylesheet" href="/frontend/Styles/Logo.css">
+    <!-- JavaScript para configuraciones (Debe estar al principio)-->
+    <script type="module" src="/frontend/js/configuracion.js"></script>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- Botón hamburguesa -->
+      <button id="toggle-btn" type="button" aria-label="Abrir menú">☰</button>
+
+      <!-- Menú lateral cargado desde menu.js -->
+      <div id="menu-container"></div>
+
+      <!-- Contenido principal -->
+      <div class="contenido">
+        <main class="profile-page">
+          <!-- Acciones superiores -->
+          <header class="profile-topbar">
+            <div class="profile-actions">
+              <!-- Acceso a configuración -->
+              <a
+                href="configuracion.html"
+                class="topbar-icon"
+                aria-label="Ir a configuración"
+              >
+                <i class="bi bi-gear"></i>
+              </a>
+
+              <!-- Notificaciones -->
+              <!-- <div class="notification-wrapper">
+                <button
+                  type="button"
+                  class="topbar-icon notification-icon"
+                  id="notificationButton"
+                  aria-label="Ver notificaciones"
+                  aria-expanded="false"
+                  aria-controls="notificationPanel"
+                >
+                  <i class="bi bi-bell"></i>
+                  <span></span>
+                </button>
+
+                <section
+                  class="notification-panel"
+                  id="notificationPanel"
+                  aria-label="Panel de notificaciones"
+                >
+                  <header class="notification-panel-header">
+                    <h2>Notificaciones</h2>
+
+                    <button
+                      type="button"
+                      class="notification-close"
+                      id="notificationClose"
+                      aria-label="Cerrar notificaciones"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </header>
+
+                  <div class="notification-list">
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-valeria-m.png"
+                        alt="Foto de perfil de Valeria M."
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p>
+                          <strong>Valeria M.</strong> publicó una nueva obra.
+                        </p>
+                        <span>Hace 2 horas</span>
+                      </div>
+                    </article>
+
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-luna.png"
+                        alt="Foto de perfil de Luna"
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p><strong>Luna</strong> escribió una reseña.</p>
+                        <span>Hace 3 horas</span>
+                      </div>
+                    </article>
+
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-diego-n.png"
+                        alt="Foto de perfil de Diego N."
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p><strong>Diego N.</strong> guardó tu historia.</p>
+                        <span>Ayer</span>
+                      </div>
+                    </article>
+                  </div>
+
+                  <a href="notificaciones.html" class="notification-view-all">
+                    Ver todas
+                  </a>
+                </section>
+              </div> -->
+
+              <!-- Acceso rápido al perfil -->
+              <a
+                href="perfil.html"
+                class="topbar-profile-link"
+                aria-label="Ir a mi perfil"
+              >
+                <img id="topbarAvatar"
+                  src="../assets/users-photos/foto-perfil-usuario.png"
+                  alt="Foto de perfil de Ana García"
+                  class="topbar-avatar"
+                />
+              </a>
+            </div>
+          </header>
+
+          <!-- Información del perfil desde usuarios.json -->
+          <section class="profile-hero">
+            <div class="profile-avatar-wrapper">
+              <img
+                src="../assets/users-photos/foto-perfil-usuario.png"
+                alt="Foto de perfil de Ana García"
+                class="profile-avatar"
+              />
+            </div>
+
+            <div class="profile-main-info">
+              <h1 id="profileDisplayName">Ana García</h1>
+              <p class="profile-username" id="profileUsername">@anag</p>
+              <p class="profile-email" id="profileEmail"></p>
+              <p class="profile-pronouns" id="profilePronouns">Ella</p>
+
+              <div class="profile-bio-card">
+                <p class="profile-bio-label">Sobre mí</p>
+
+                <div class="profile-tags" id="profileRoles">
+                  <span>Escritora</span>
+                  <span>Lectora</span>
+                </div>
+
+                <p class="profile-bio" id="profileBio">
+                  Amo la fantasía, los mundos imaginarios y las historias que te
+                  hacen sentir. Siempre escribiendo, siempre leyendo.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Estadísticas básicas del usuario -->
+          <section class="profile-stats">
+            
+          </section>
+
+          <!-- Tabs del perfil con Bootstrap -->
+          <section class="profile-tabs-section">
+            <ul class="nav profile-tabs" id="profileTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="profile-tab active"
+                  id="obras-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#obras"
+                  type="button"
+                  role="tab"
+                  aria-controls="obras"
+                  aria-selected="true"
+                >
+                  Obra Publicada
+                </button>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <button
+                  class="profile-tab"
+                  id="borrador-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#borrador"
+                  type="button"
+                  role="tab"
+                  aria-controls="borrador"
+                  aria-selected="false"
+                >
+                  Borrador
+                </button>
+              </li>
+            </ul>
+
+            <a href="publicar.html" class="create-work-button"> Crear obra </a>
+          </section>
+
+          <!-- Contenido de tabs -->
+          <section
+            class="tab-content profile-tab-content"
+            id="profileTabsContent"
+          >
+            <section
+              class="tab-pane fade show active profile-content-section"
+              id="obras"
+              role="tabpanel"
+              aria-labelledby="obras-tab"
+            >
+              <div class="works-grid" id="obrasContainer"></div>
+            </section>
+
+            <section
+              class="tab-pane fade profile-content-section"
+              id="borrador"
+              role="tabpanel"
+              aria-labelledby="borrador-tab"
+            >
+              <div class="works-grid" id="borradorContainer"></div>
+            </section>
+          </section>
+        </main>
+
+        <!-- Footer inferior -->
+        <footer class="site-footer site-footer--bottom">
+          <nav class="site-footer-links" aria-label="Enlaces informativos">
+            <a href="nosotrosli.html"> Acerca de </a>
+
+            <a href="contactanos.html"> Contáctanos </a>
+
+            <a href="aviso-privacidad.html"> Aviso de privacidad </a>
+
+            <a href="terminos.html"> Términos y condiciones </a>
+          </nav>
+
+          <div class="site-footer-brand">
+            <a
+              href="principal.html"
+              class="site-footer-logo"
+              aria-label="Ir a la página principal"
+            >
+              <div class="footer-logo"></div>
+            </a>
+
+            <p class="site-footer-copyright">Calíope © 2026</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Menú lateral -->
+    <script src="../js/menu.js"></script>
+
+    <!-- JavaScript de la ventana de notificaciones -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/avatarUpdate.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+
+    <!-- JavaScript de perfil -->
+    <script type="module" src="../js/perfil.js"></script>
+    <!-- JavaScript para agregar obras a Leyendo -->
+    <script src="../js/lectura-botones.js"></script>
+    
+  </body>
+</html>
+

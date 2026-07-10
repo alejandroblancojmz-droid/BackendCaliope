@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Configuración</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="../Styles/globales.css" />
+    <link rel="stylesheet" href="../Styles/footer.css" />
+    <link rel="stylesheet" href="../Styles/menu.css" />
+    <link rel="stylesheet" href="../Styles/configuracion.css" />
+    <link rel="stylesheet" href="/frontend/Styles/Logo.css">
+    
+    
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- Menú lateral -->
+      <button id="toggle-btn" type="button" aria-label="Abrir menú">☰</button>
+
+      <div id="menu-container"></div>
+
+      <!-- Contenido principal -->
+      <div class="contenido">
+        <main class="settings-page">
+          <!-- Barra superior -->
+          <header class="page-topbar">
+            <div class="page-actions">
+              <!-- Configuración -->
+              <a
+                href="configuracion.html"
+                class="topbar-icon active"
+                aria-label="Configuración"
+              >
+                <i class="bi bi-gear"></i>
+              </a>
+
+             
+              <!-- Perfil -->
+              <a
+                href="perfil.html"
+                class="topbar-profile-link"
+                aria-label="Ir a mi perfil"
+              >
+                <img id="topbarAvatar"
+                  src="../assets/users-photos/foto-perfil-usuario.png"
+                  alt="Foto de perfil del usuario"
+                  class="topbar-avatar"
+                />
+              </a>
+            </div>
+          </header>
+
+          <!-- Encabezado -->
+          <section class="settings-header">
+            <p class="settings-kicker">Cuenta</p>
+
+            <h1>Configuración</h1>
+
+            <p>
+              Personaliza tu experiencia en Calíope, ajusta tus preferencias de
+              privacidad y administra la información visible de tu perfil.
+            </p>
+          </section>
+
+          <!-- Contenido de configuración -->
+          <section class="settings-layout">
+            <!-- Apariencia -->
+            <article class="settings-card">
+              <header class="settings-card-header">
+                <div class="settings-icon">
+                  <i class="bi bi-palette"></i>
+                </div>
+
+                <div>
+                  <h2>Apariencia</h2>
+                  <p>Ajusta la forma en que se ve la plataforma.</p>
+                </div>
+              </header>
+
+              <div class="settings-option">
+                <div class="settings-option-text">
+                  <h3>Tema de la aplicación</h3>
+                  <p>
+                    Elige entre modo claro, oscuro o automático según tu
+                    sistema.
+                  </p>
+                </div>
+
+                <select
+                  id="themeSelect"
+                  class="settings-select"
+                  aria-label="Seleccionar tema"
+                >
+                  <option value="light">Claro</option>
+                  <option value="dark">Oscuro</option>
+                  <option value="system">Sistema</option>
+                </select>
+              </div>
+            </article>
+
+            <!-- Privacidad -->
+            <article class="settings-card">
+              <header class="settings-card-header">
+                <div class="settings-icon">
+                  <i class="bi bi-shield-lock"></i>
+                </div>
+
+                <div>
+                  <h2>Privacidad</h2>
+                  <p>Controla qué información pueden ver otras personas.</p>
+                </div>
+              </header>
+
+              <div class="settings-list">
+                <label class="settings-toggle">
+                  <span>
+                    <strong>Perfil público</strong>
+                    <small>
+                      Permite que otros usuarios encuentren y visiten tu perfil.
+                    </small>
+                  </span>
+
+                  <input
+                    type="checkbox"
+                    id="publicProfile"
+                    name="publicProfile"
+                    checked
+                  />
+
+                  <span class="toggle-slider"></span>
+                </label>
+
+                <label class="settings-toggle">
+                  <span>
+                    <strong>Mostrar actividad reciente</strong>
+                    <small>
+                      Comparte reseñas, lecturas y publicaciones recientes.
+                    </small>
+                  </span>
+
+                  <input
+                    type="checkbox"
+                    id="showActivity"
+                    name="showActivity"
+                    checked
+                  />
+
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </article>
+
+            <!-- Perfil -->
+            <article class="settings-card">
+              <header class="settings-card-header">
+                <div class="settings-icon">
+                  <i class="bi bi-person"></i>
+                </div>
+
+                <div>
+                  <h2>Perfil</h2>
+                  <p>Edita los datos principales que aparecen en tu cuenta.</p>
+                </div>
+              </header>
+<form class="settings-form" id="profileSettingsForm">
+    <div class="form-group">
+        <label for="displayName">Nombre completo</label>
+        <input type="text" id="displayName" name="displayName" required>
+    </div>
+
+    <div class="form-group">
+        <label for="username">Nombre de usuario</label>
+        <input type="text" id="username" name="username">
+    </div>
+
+    <div class="form-group">
+        <label for="profileBio">Biografía</label>
+        <textarea id="profileBio" name="bio" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="profileEmail">Email</label>
+        <input type="email" id="profileEmail" disabled>
+    </div>
+
+    <div class="form-group">
+        <label for="profileAvatar">Avatar</label>
+        <input type="file" id="profileAvatar" accept="image/*">
+        <img id="avatarPreview" style="display:none; max-width:100px; margin-top:10px;">
+    </div>
+
+    <div class="form-group">
+        <label>Pronombres</label>
+        <select id="pronounSelect">
+            <option value="">Seleccionar</option>
+            <option value="Ella">Ella</option>
+            <option value="Él">Él</option>
+            <option value="Elle">Elle</option>
+        </select>
+        <div id="selectedPronouns"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Roles</label>
+        <select id="roleSelect">
+            <option value="">Seleccionar</option>
+            <option value="Escritor">Escritor</option>
+            <option value="Lector">Lector</option>
+            <option value="Editor">Editor</option>
+        </select>
+        <div id="selectedRoles"></div>
+    </div>
+
+    <button  class="settings-save-button"type="submit">Guardar cambios</button>
+</form>
+              <!-- <form class="settings-form" id="profileSettingsForm">
+                <div class="settings-form-grid">
+                  <div class="form-group">
+                    <label for="displayName"> Nombre visible </label>
+
+                    <input
+                      type="text"
+                      id="displayName"
+                      name="displayName"
+                      value="Ana García"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username"> Nombre de usuario </label>
+
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      value="@anag"
+                    />
+                  </div>
+                </div>
+
+               <div class="settings-form-grid">
+  <div class="form-group">
+    <label for="pronounSelect">Pronombres</label>
+
+    <select id="pronounSelect" class="settings-select">
+      <option value="">Selecciona un pronombre</option>
+      <option value="Ella">Ella</option>
+      <option value="Él">Él</option>
+      <option value="Elle">Elle</option>
+    </select>
+
+    <div id="selectedPronouns" class="selected-tags"></div>
+
+    <small class="form-help">
+      Puedes agregar hasta 3 pronombres.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="roleSelect">Roles</label>
+
+    <select id="roleSelect" class="settings-select">
+      <option value="">Selecciona un rol</option>
+      <option value="Escritor">Escritor</option>
+      <option value="Lector">Lector</option>
+      <option value="Reseñista">Reseñista</option>
+    </select>
+
+    <div id="selectedRoles" class="selected-tags"></div>
+
+    <small class="form-help">
+      Puedes agregar hasta 3 roles.
+    </small>
+  </div>
+</div>
+
+                <div class="form-group">
+                  <label for="profileBio"> Biografía </label>
+
+                  <textarea id="profileBio" name="profileBio" rows="4">
+Amo la fantasía, los mundos imaginarios y las historias que te hacen sentir. Siempre escribiendo, siempre leyendo.</textarea
+                  >
+                </div>
+
+                <div class="settings-actions">
+                  <button type="button" class="settings-cancel-button">
+                    Cancelar
+                  </button>
+
+                  <button type="submit" class="settings-save-button">
+                    Guardar cambios
+                  </button>
+                </div>
+              </form> -->
+            </article>
+          </section>
+        </main>
+
+        <!-- Footer inferior -->
+        <footer class="site-footer site-footer--bottom">
+          <nav class="site-footer-links" aria-label="Enlaces informativos">
+            <a href="nosotrosli.html"> Acerca de </a>
+
+            <a href="contactanos.html"> Contáctanos </a>
+
+            <a href="aviso-privacidad.html"> Aviso de privacidad </a>
+
+            <a href="terminos.html"> Términos y condiciones </a>
+          </nav>
+
+          <div class="site-footer-brand">
+            <a
+              href="principal.html"
+              class="site-footer-logo"
+              aria-label="Ir a la página principal"
+            >
+              <div class="footer-logo"></div>
+            </a>
+
+            <p class="site-footer-copyright">Calíope © 2026</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Menú lateral -->
+    <script src="../js/menu.js"></script>
+
+    <!-- Panel de notificaciones -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/avatarUpdate.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Configuración -->
+    <script type="module" src="../js/configuracion.js"></script>
+  </body>
+</html>

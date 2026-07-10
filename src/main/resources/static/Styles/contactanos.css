@@ -1,0 +1,384 @@
+/* ==========================================================================
+   CONTACTO
+   Adaptado a globales.css
+   ========================================================================== */
+
+/* ==========================================================================
+   RESET BÁSICO
+   ========================================================================== */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   CONTENIDO PRINCIPAL
+   ========================================================================== */
+
+.contact-section {
+  padding: 70px 0;
+  background-color: var(--color-bg-app);
+}
+
+/* ==========================================================================
+   TÍTULO PRINCIPAL
+   ========================================================================== */
+
+.main-title {
+  font-size: 48px;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-title);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.main-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-body);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   TARJETAS
+   ========================================================================== */
+
+.contact-card {
+  background-color: var(--color-bg-card);
+  border: 1px solid #e8e4f3;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 4px 12px rgba(28, 18, 54, 0.04);
+  transition: var(--transition-smooth);
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99, 59, 188, 0.15);
+  box-shadow: 0 8px 20px rgba(28, 18, 54, 0.08);
+}
+
+/* ==========================================================================
+   TÍTULOS DE SECCIÓN
+   ========================================================================== */
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-title);
+}
+
+/* ==========================================================================
+   FORMULARIOS
+   ========================================================================== */
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-title);
+  margin-bottom: 10px;
+}
+
+.input-group {
+  border: 1px solid #e1dfec;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.input-group-text {
+  border: none;
+  background-color: var(--color-bg-input);
+  color: var(--color-primary);
+}
+
+.input-group .form-control {
+  border: none;
+}
+
+/* ==========================================================================
+   INPUTS Y SELECTS
+   ========================================================================== */
+
+.form-control,
+.form-select {
+  border: 1px solid #e1dfec;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--color-text-body);
+  background-color: var(--color-bg-input);
+  transition: var(--transition-smooth);
+}
+
+.form-control {
+  border-left: none;
+}
+
+.form-control::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: rgba(99, 59, 188, 0.25);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(99, 59, 188, 0.12);
+}
+
+textarea {
+  resize: none;
+}
+
+/* ==========================================================================
+   INFORMACIÓN DE CONTACTO
+   ========================================================================== */
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   ICONOS DE CONTACTO
+   ========================================================================== */
+
+.info-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border-radius: 8px;
+}
+
+.info-item:hover .info-icon {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(99, 59, 188, 0.12);
+}
+/* ==========================================================================
+   TEXTO DE CONTACTO
+   ========================================================================== */
+
+.info-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.info-text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-body);
+}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+
+.faq-item {
+  margin-bottom: 30px;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-item h5 {
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-title);
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  color: var(--color-text-body);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE TABLET
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .main-title {
+    font-size: 42px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .contact-card {
+    padding: 28px;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE MÓVIL
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 45px 0;
+  }
+
+  .main-title {
+    font-size: 2.4rem;
+  }
+
+  .main-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .contact-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .info-item {
+    gap: 14px;
+  }
+
+  .contenido {
+    margin-left: 0 !important;
+    padding: 80px 20px 20px;
+  }
+
+  .contenido.expand {
+    margin-left: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   CELULARES PEQUEÑOS
+   ========================================================================== */
+
+@media (max-width: 576px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .main-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 12px 14px;
+  }
+}
+
+/* ==========================================================================
+   MENÚ RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    box-shadow: 5px 0 25px rgba(28, 18, 54, 0.12);
+  }
+
+  .sidebar:not(.closed) {
+    transform: translateX(0);
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%);
+    width: 260px;
+  }
+
+  .sidebar.closed span {
+    display: inline;
+  }
+
+  .sidebar.closed li a {
+    justify-content: flex-start;
+  }
+
+  .menu-header {
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+
+  .img {
+    width: 130px;
+  }
+
+  #toggle-btn {
+    top: 12px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+.contact-card .info-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+
+  border-radius: 12px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   CORRECCIÓN DE FONDO GLOBAL
+   ========================================================================== */
+
+html,
+body {
+  background-color: var(--color-bg-app);
+}
+
+.contenido {
+  background-color: var(--color-bg-app) !important;
+  min-height: 100vh;
+}
+
+.contact-section {
+  background-color: transparent;
+}
