@@ -50,7 +50,7 @@ public class SecurityConfig {
                       ).permitAll()
 
                       // Todo lo demás requiere JWT
-                      .anyRequest().authenticated()
+                      .anyRequest().permitAll()
               )
 
               .addFilterBefore(
