@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import org.generation.caliope.dto.LikesRequest;
 import org.generation.caliope.model.Likes;
 import org.generation.caliope.model.Stories;
+import org.generation.caliope.model.Users;
 import org.generation.caliope.repository.LikesRepository;
 import org.generation.caliope.repository.StoriesRepository;
+import org.generation.caliope.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,57 +21,50 @@ public class LikesService {
 
     private final LikesRepository likesRepository;
     private final StoriesRepository storiesRepository;
+    private final UsersRepository usersRepository;
 
-    // Crear un Like
-    public Likes addLike(LikesRequest likesRequest) {
+    // Da o quita el like (toggle) para el usuario autenticado
+    public Map<String, Object> toggleLike(LikesRequest request, String emailAutenticado) {
+        Users user = usersRepository.findByEmail(emailAutenticado)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
-        Stories story = storiesRepository.findById(likesRequest.idStories())
+        Stories story = storiesRepository.findById(request.idStories())
                 .orElseThrow(() -> new IllegalArgumentException("Historia no encontrada"));
 
-        Likes like = new Likes();
+        Optional<Likes> existente = likesRepository.findByStories_IdAndUsers_Id(story.getId(), user.getId());
 
-        // La fecha se genera automáticamente
-        like.setCreated_date(LocalDate.now());
-
-        // Relación con la historia
-        like.setStories(story);
-
-        return likesRepository.save(like);
-    }
-
-    // Obtener todos los Likes
-    public List<Likes> getAllLikes() {
-        return likesRepository.findAll();
-    }
-
-    // Obtener un Like por ID
-    public Likes getLikeById(Long id) {
-        return likesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Like no encontrado"));
-    }
-
-    // Eliminar un Like
-    public Likes deleteLikeById(Long id) {
-
-        Likes like = likesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Like no encontrado"));
-
-        likesRepository.delete(like);
-
-        return like;
-    }
-
-    // Actualizar un Like
-    public Likes updateLikeById(Long id, Likes updateLike) {
-
-        Likes savedLike = likesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Like no encontrado"));
-
-        if (updateLike.getCreated_date() != null) {
-            savedLike.setCreated_date(updateLike.getCreated_date());
+        boolean dioLike;
+        if (existente.isPresent()) {
+            likesRepository.delete(existente.get());
+            dioLike = false;
+        } else {
+            Likes like = new Likes();
+            like.setCreated_date(LocalDate.now());
+            like.setStories(story);
+            like.setUsers(user);
+            likesRepository.save(like);
+            dioLike = true;
         }
 
-        return likesRepository.save(savedLike);
+        long total = likesRepository.countByStories_Id(story.getId());
+
+        Map<String, Object> resultado = new HashMap<>();
+        resultado.put("liked", dioLike);
+        resultado.put("totalLikes", total);
+        return resultado;
     }
 
+    // Info inicial para pintar el botón al cargar la página
+    public Map<String, Object> getLikeInfo(Long storiesId, String emailAutenticado) {
+        Users user = usersRepository.findByEmail(emailAutenticado)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        boolean liked = likesRepository.findByStories_IdAndUsers_Id(storiesId, user.getId()).isPresent();
+        long total = likesRepository.countByStories_Id(storiesId);
+
+        Map<String, Object> resultado = new HashMap<>();
+        resultado.put("liked", liked);
+        resultado.put("totalLikes", total);
+        return resultado;
+    }
 }
