@@ -1,0 +1,553 @@
+/* ==========================================================================
+   GLOBALES.CSS — CALIOPE
+   ========================================================================== */
+
+/* ==========================================================================
+   VARIABLES
+   ========================================================================== */
+
+:root {
+  --color-primary:      #633bbc;
+  --color-primary-dark: #4a2896;
+  --color-secondary:    #efe9f9;
+
+  --color-bg-app:       #f6f5fa;
+  --color-bg-card:      #ffffff;
+  --color-bg-input:     #fbfbff;
+
+  --color-text-title:   #1c1236;
+  --color-text-body:    #3a2f5a;
+  --color-text-muted:   #82779a;
+
+  --app-gradient-primary: linear-gradient(
+    135deg,
+    var(--color-bg-card) 0%,
+    var(--color-text-muted) 100%
+  );
+
+  --font-ui: "Plus Jakarta Sans", sans-serif;
+  --font-editorial: "Lora", serif;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --radius-btn: 10px;
+  --radius: 12px;
+  --border-width: 1px;
+
+  --borders: #e1dfec;
+  --shadow: 0 4px 12px rgba(28, 18, 54, 0.04);
+
+  --transition-smooth: background-color 0.3s ease, color 0.3s ease,
+    transform 0.2s ease, border-color 0.3s ease;
+  --transition: all 0.3s ease;
+
+  /* Compatibilidad con CSS anteriores */
+  --bg-app: var(--color-bg-app);
+  --bg-surface: var(--color-bg-card);
+  --bg-inputs: var(--color-bg-input);
+  --bg-tags: var(--color-secondary);
+  --text-base: var(--color-text-body);
+  --text-main: var(--color-text-title);
+  --text-placeholder: var(--color-text-muted);
+  --primary-purple: var(--color-primary);
+}
+
+/* ==========================================================================
+   TEMA OSCURO
+   ========================================================================== */
+
+[data-theme="dark"] {
+  --color-primary: #7a52e1;
+  --color-primary-dark: #5a2ea8;
+  --color-secondary: #2d2354;
+
+  --color-bg-app: #130f26;
+  --color-bg-card: #1d183a;
+  --color-bg-input: #252048;
+
+  --color-text-title: #f4f2fa;
+  --color-text-body: #c3bcdb;
+  --color-text-muted: #7e7599;
+
+  --app-gradient-primary: linear-gradient(
+    135deg,
+    var(--color-bg-card) 0%,
+    var(--color-text-muted) 100%
+  );
+
+  --borders: #3a3170;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+  --bg-app: var(--color-bg-app);
+  --bg-surface: var(--color-bg-card);
+  --bg-inputs: var(--color-bg-input);
+  --bg-tags: var(--color-secondary);
+  --text-base: var(--color-text-body);
+  --text-main: var(--color-text-title);
+  --text-placeholder: var(--color-text-muted);
+  --primary-purple: var(--color-primary);
+}
+
+/* ==========================================================================
+   RESET Y BASE
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-weight: var(--weight-regular);
+  background-color: var(--color-bg-app);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   TIPOGRAFÍA
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-title {
+  font-family: var(--font-editorial);
+  color: var(--color-text-title);
+  font-weight: var(--weight-bold);
+}
+
+button,
+input,
+select,
+textarea,
+.btn,
+.nav-link,
+.form-label {
+  font-family: var(--font-ui);
+}
+
+.editorial-title,
+.literary-text,
+blockquote,
+.chapter-title {
+  font-family: var(--font-editorial);
+  color: var(--color-text-title);
+}
+
+h4.editorial-title,
+.chapter-title {
+  font-weight: var(--weight-semibold);
+}
+
+.text-secondary,
+.subtitle {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}
+
+/* ==========================================================================
+   TARJETAS Y PANELES
+   ========================================================================== */
+
+.card,
+.panel,
+.form-card,
+.card-global-structure {
+  background-color: var(--color-bg-card);
+  color: var(--color-text-body);
+  border: 1px solid var(--borders);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   FORMULARIOS
+   ========================================================================== */
+
+input,
+select,
+textarea,
+.form-control,
+.form-select {
+  width: 100%;
+  font-family: var(--font-ui);
+  font-weight: var(--weight-regular);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-body);
+  border: var(--border-width) solid var(--borders);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: var(--transition-smooth);
+}
+
+input::placeholder,
+textarea::placeholder,
+.form-control::placeholder {
+  color: var(--color-text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(122, 82, 225, 0.18);
+}
+
+.form-label {
+  color: var(--color-text-title);
+  font-family: var(--font-ui);
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: 1px solid var(--borders);
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+  background-color: var(--color-secondary);
+  color: var(--color-text-title);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.btn-circle {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   NAVEGACIÓN Y ETIQUETAS
+   ========================================================================== */
+
+.sidebar,
+.nav-link {
+  font-family: var(--font-ui);
+  font-weight: var(--weight-medium);
+}
+
+.label-system {
+  font-family: var(--font-ui);
+  font-weight: var(--weight-bold);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PANEL DE NOTIFICACIONES
+   ========================================================================== */
+
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  z-index: 1000;
+
+  width: min(360px, 90vw);
+  padding: 18px;
+
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--borders);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(28, 18, 54, 0.16);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.notification-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.notification-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.notification-panel-header h2 {
+  margin: 0;
+  color: var(--color-text-title);
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: var(--weight-bold);
+}
+
+.notification-close {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.notification-close:hover {
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+}
+
+.notification-list {
+  display: grid;
+  gap: 12px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.notification-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notification-item p {
+  margin: 0 0 4px;
+  color: var(--color-text-body);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.notification-item strong {
+  color: var(--color-text-title);
+}
+
+.notification-item span {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+}
+
+.notification-view-all {
+  display: block;
+  margin-top: 14px;
+  padding: 10px 14px;
+
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  border-radius: 12px;
+
+  font-size: 0.88rem;
+  font-weight: var(--weight-semibold);
+  text-align: center;
+  text-decoration: none;
+}
+
+.notification-view-all:hover {
+  color: #ffffff;
+  background-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   FOOTER GLOBAL
+   ========================================================================== */
+
+.site-footer {
+  width: 100%;
+  color: #6f6a73;
+  text-align: center;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 22px;
+  margin-bottom: 18px;
+}
+
+.site-footer-links a {
+  color: #6f6a73;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer-links a:hover,
+.site-footer-links a:focus-visible {
+  color: var(--color-primary);
+}
+
+.site-footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.site-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.site-footer-logo img {
+  display: block;
+  width: auto;
+  height: 40px;
+  object-fit: contain;
+}
+
+.site-footer-copyright {
+  margin: 0;
+  color: #6f6a73;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.site-footer--aside {
+  margin-top: 28px;
+  padding: 18px 8px 28px;
+}
+
+.site-footer--bottom {
+  margin-top: 56px;
+  padding: 28px 0;
+  border-top: 1px solid var(--borders);
+}
+
+/* ==========================================================================
+   LOGOS Y EFECTOS
+   ========================================================================== */
+
+.logo-container-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+
+.main-logo2:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 16px rgba(122, 82, 225, 0.5));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.1);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat {
+  animation: heartbeat 1.5s infinite;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+  .site-footer--aside,
+  .site-footer--bottom {
+    padding: 24px 16px;
+  }
+}
+
+
