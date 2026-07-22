@@ -26,11 +26,7 @@ import java.util.UUID;
 public class UsersService {
     private final PasswordEncoder passwordEncoder;
     private final UsersRepository usersRepository;
-    private final StoriesRepository storiesRepository;
     private final JwtService jwtService;
-
-
-
 
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
@@ -104,6 +100,9 @@ public class UsersService {
 
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+        System.out.println(authentication.getName());
+
 
         String email = authentication.getName();
 
@@ -116,8 +115,7 @@ public class UsersService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found!"));
 
         if (avatar != null && !avatar.isEmpty()) {
-            // Crear directorio si no existe
-            Path uploadPath = Paths.get("uploads/");
+            Path uploadPath = Paths.get("/home/ubuntu/src/uploads");
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }

@@ -33,19 +33,14 @@ public class StoriesService {
     private final FileStorageService fileStorageService;
 
     // Directorio donde se guardarán los archivos
-    private static final String UPLOAD_DIR = "uploads/";
+    private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
 
 
-    public Stories addStories(StoriesRequest storiesRequest)throws IOException {
-
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-
+    public Stories addStories(StoriesRequest storiesRequest) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-
         Users users = usersRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Usuario no encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
         Stories newStorie = new Stories();
 
@@ -55,38 +50,47 @@ public class StoriesService {
         newStorie.setCreated_date(LocalDateTime.now());
         newStorie.setPublished_date(LocalDateTime.now());
 
-
         // Procesar archivos
         MultipartFile pictureFile = storiesRequest.picture_front_pages();
         MultipartFile pdfFile = storiesRequest.file_pdf();
 
+        if (pictureFile != null) {
+
+        }
+        if (pdfFile != null) {
+        }
+
         // Crear directorio si no existe
         Path uploadPath = Paths.get(UPLOAD_DIR);
 
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
 
-        // Guardar portada
+        }
+
         if (pictureFile != null && !pictureFile.isEmpty()) {
             String pictureFileName = UUID.randomUUID().toString() + "_" + pictureFile.getOriginalFilename();
             Path picturePath = uploadPath.resolve(pictureFileName);
             Files.copy(pictureFile.getInputStream(), picturePath);
             newStorie.setPicture_front_pages(pictureFileName);
-            System.out.println("Portada guardada: " + pictureFileName);
+
         }
 
-        // Guardar PDF
         if (pdfFile != null && !pdfFile.isEmpty()) {
             String pdfFileName = UUID.randomUUID().toString() + "_" + pdfFile.getOriginalFilename();
             Path pdfPath = uploadPath.resolve(pdfFileName);
             Files.copy(pdfFile.getInputStream(), pdfPath);
             newStorie.setFile_pdf(pdfFileName);
-            System.out.println("PDF guardado: " + pdfFileName);
-        }
 
+        }
 
         newStorie.setUsers(users);
         users.getStories().add(newStorie);
+
+
         storiesRepository.save(newStorie);
         usersRepository.save(users);
+
 
         if (storiesRequest.genres() != null) {
             for (Long genreId : storiesRequest.genres()) {
@@ -98,6 +102,7 @@ public class StoriesService {
                 storyGenresRepository.save(storyGenre);
             }
         }
+
 
         return newStorie;
     }

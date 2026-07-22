@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Principal</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="../Styles/globales.css" />
+    <link rel="stylesheet" href="../Styles/principal.css" />
+    <link rel="stylesheet" href="../Styles/menu.css" />
+<!--    <link rel="stylesheet" href="../Styles/footer.css" />-->
+    <script type="module" src="../js/configuracion.js"></script>
+    <link rel="stylesheet" href="../Styles/Logo.css" />
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- Botón y contenedor del menú lateral -->
+      <button id="toggle-btn" type="button" aria-label="Abrir menú">☰</button>
+
+      <div id="menu-container"></div>
+
+      <!-- Contenido general -->
+      <div class="contenido">
+        <main class="home-page">
+          <!-- Barra superior -->
+          <header class="page-topbar">
+            <div class="page-actions">
+              <!-- Acceso a configuración -->
+              <a
+                href="configuracion.html"
+                class="topbar-icon"
+                aria-label="Ir a configuración"
+              >
+                <i class="bi bi-gear"></i>
+              </a>
+
+              <!-- Notificaciones -->
+              <!-- <div class="notification-wrapper">
+                <button
+                  type="button"
+                  class="topbar-icon notification-icon"
+                  id="notificationButton"
+                  aria-label="Ver notificaciones"
+                  aria-expanded="false"
+                  aria-controls="notificationPanel"
+                >
+                  <i class="bi bi-bell"></i>
+                  <span></span>
+                </button>
+
+                <section
+                  class="notification-panel"
+                  id="notificationPanel"
+                  aria-label="Panel de notificaciones"
+                >
+                  <header class="notification-panel-header">
+                    <h2>Notificaciones</h2>
+                    <button
+                      type="button"
+                      class="notification-close"
+                      id="notificationClose"
+                      aria-label="Cerrar notificaciones"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </header>
+
+                  <div class="notification-list">
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-valeria-m.png"
+                        alt="Foto de perfil de Valeria M."
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p>
+                          <strong>Valeria M.</strong> publicó una nueva obra.
+                        </p>
+                        <span>Hace 2 horas</span>
+                      </div>
+                    </article>
+
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-luna.png"
+                        alt="Foto de perfil de Luna"
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p><strong>Luna</strong> escribió una reseña.</p>
+                        <span>Hace 3 horas</span>
+                      </div>
+                    </article>
+
+                    <article class="notification-item">
+                      <img
+                        src="../assets/users-photos/foto-perfil-diego-n.png"
+                        alt="Foto de perfil de Diego N."
+                        class="notification-avatar"
+                      />
+
+                      <div>
+                        <p><strong>Diego N.</strong> guardó tu historia.</p>
+                        <span>Ayer</span>
+                      </div>
+                    </article>
+                  </div>
+
+                  <a href="./notificaciones.html" class="notification-view-all">
+                    Ver todas
+                  </a>
+                </section>
+              </div> -->
+
+              <!-- Acceso rápido al perfil -->
+              <a
+                href="perfil.html"
+                class="topbar-profile-link"
+                aria-label="Ir a mi perfil"
+              >
+                <img id="topbarAvatar"
+                  src="../assets/users-photos/foto-perfil-usuario.png"
+                  alt="Foto de perfil del usuario"
+                  class="topbar-avatar"
+                />
+              </a>
+            </div>
+          </header>
+
+          <div class="row g-4">
+            <!-- Columna principal del feed -->
+            <section class="col-12 col-lg-8">
+              <h1 class="home-title">Para ti</h1>
+
+              <div id="feedContainer"></div>
+            </section>
+
+            <!-- Columna lateral derecha -->
+            <aside class="col-12 col-lg-4 home-aside">
+              <!-- Actividad de tus seguidos -->
+              <section class="side-card mb-4">
+                <h2>Actividad de tus seguidos</h2>
+
+                <label for="activity-filter" class="visually-hidden">
+                  Filtrar actividad
+                </label>
+
+                <select
+                  id="activity-filter"
+                  class="form-select activity-filter"
+                >
+                  <option>Toda la actividad</option>
+                  <option>Más reciente</option>
+                  <option>Sólo historias</option>
+                  <option>Sólo reseñas</option>
+                </select>
+
+                <div class="activity-item">
+                  <img
+                    src="../assets/users-photos/foto-perfil-valeria-m.png"
+                    alt="Avatar de Valeria M."
+                    class="activity-avatar"
+                  />
+
+                  <p>
+                    <strong>Valeria Ma.</strong>
+                    publicó una nueva obra.
+                  </p>
+
+                  <span> 2h </span>
+                </div>
+
+                <div class="activity-item">
+                  <img
+                    src="../assets/users-photos/foto-perfil-luna.png"
+                    alt="Avatar de Luna"
+                    class="activity-avatar"
+                  />
+
+                  <p>
+                    <strong>Luna</strong>
+                    escribió una reseña.
+                  </p>
+
+                  <span> 2h </span>
+                </div>
+
+                <button type="button" class="view-all-button">Ver todo</button>
+              </section>
+
+              <!-- Obras destacadas -->
+              <section class="side-card">
+                <h2>Obras destacadas</h2>
+
+                <article class="featured-story">
+                  <img
+                    src="../assets/stories-covers/portada-historia-luz-de-octubre.png"
+                    alt="Portada de Luz de octubre"
+                    class="featured-cover"
+                  />
+
+                  <div class="featured-info">
+                    <h3>Luz de octubre</h3>
+
+                    <p
+                      class="review-rating"
+                      aria-label="Calificación de cinco estrellas"
+                    >
+                      ★★★★★
+                    </p>
+
+                    <a
+                      href="lectura.html?id=luz-octubre"
+                      class="read-button read-button-small"
+                      data-id="luz-octubre"
+                      data-titulo="Luz de octubre"
+                      data-autor="Valeria M."
+                      data-portada="../assets/stories-covers/portada-historia-luz-de-octubre.png"
+                      data-total-pages="3"
+                    >
+                      Leer
+                    </a>
+                  </div>
+                </article>
+              </section>
+
+              <!-- Footer lateral -->
+              <footer class="site-footer site-footer--aside">
+                <nav
+                  class="site-footer-links"
+                  aria-label="Enlaces informativos"
+                >
+                  <a href="nosotrosli.html"> Acerca de </a>
+
+                  <a href="contactanos.html"> Contáctanos </a>
+
+                  <a href="aviso-privacidad.html"> Aviso de privacidad </a>
+
+                  <a href="terminos.html"> Términos y condiciones </a>
+                </nav>
+
+                <div class="site-footer-brand">
+                  <a
+                    href="principal.html"
+                    class="site-footer-logo"
+                    aria-label="Ir a la página principal"
+                  >
+                    <div class="footer-logo"></div>
+                  </a>
+
+                  <p class="site-footer-copyright">Calíope © 2026</p>
+                </div>
+              </footer>
+            </aside>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- JavaScript del menú -->
+    <script src="../js/menu.js"></script>
+    <script src="../js/notificaciones.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <!--Script guardados-->
+    <script src="../js/guardados.js"></script>
+    <script src="../js/compartir.js"></script>
+
+    <script type="module" src="../js/avatarUpdate.js"></script>
+    <!-- JavaScript de Inicio -->
+    <script type="module" src="../js/principal.js"></script>
+
+    <!-- JavaScript para agregar obras a Leyendo -->
+    <script src="../js/lectura-botones.js"></script>
+  </body>
+</html>

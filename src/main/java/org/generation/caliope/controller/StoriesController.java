@@ -71,7 +71,6 @@ public class StoriesController {
             @RequestParam(value = "picture_front_pages", required = false) MultipartFile picture_front_pages,
             @RequestParam(value = "file_pdf", required = false) MultipartFile file_pdf
     ) throws IOException {
-
         // Crear el DTO con los datos
         StoriesRequest storiesRequest = new StoriesRequest(
                 title,
