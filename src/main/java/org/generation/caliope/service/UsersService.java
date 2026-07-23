@@ -116,6 +116,8 @@ public class UsersService {
 
         if (avatar != null && !avatar.isEmpty()) {
             Path uploadPath = Paths.get("/home/ubuntu/src/uploads");
+//           cambio de ruta
+//           Path uploadPath = Paths.get("uploads");
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }

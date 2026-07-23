@@ -1,45 +1,6 @@
+import { api } from "./api.js";
+
 export const LikeManager = (() => {
-  let state = {};
-
-  const STORAGE_KEY = "likes";
-
-  // -------------------------
-  // CARGAR / GUARDAR ESTADO
-  // -------------------------
-  function load() {
-    state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  }
-
-  function save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  function get(id) {
-    return state[id];
-  }
-
-  // -------------------------
-  // TOGGLE (SIN DOM DEPENDENCY)
-  // -------------------------
-  function toggle(id) {
-    if (!state[id]) {
-      state[id] = {
-        liked: false,
-        count: 0,
-      };
-    }
-
-    state[id].liked = !state[id].liked;
-
-    if (state[id].liked) {
-      state[id].count++;
-    } else {
-      state[id].count = Math.max(0, state[id].count - 1);
-    }
-
-    save();
-    return state[id];
-  }
 
   // -------------------------
   // ACTUALIZAR UI
@@ -55,45 +16,66 @@ export const LikeManager = (() => {
     icon.classList.toggle("bi-heart", !data.liked);
     icon.classList.toggle("bi-heart-fill", data.liked);
 
-    counter.textContent = data.count;
+    counter.textContent = data.totalLikes;
+  }
+
+  // -------------------------
+  // CARGAR ESTADO INICIAL DESDE EL BACKEND
+  // -------------------------
+  async function loadInitialState(btn) {
+    const id = btn.getAttribute("data-id");
+    if (!id) return;
+
+    try {
+      const res = await api(`/api/stories/likes/story/${id}`);
+      if (!res || !res.ok) return; // si no hay token válido, api() ya redirige
+      const data = await res.json();
+      updateUI(btn, data);
+    } catch (e) {
+      console.error("Error cargando estado del like:", e);
+    }
+  }
+
+  // -------------------------
+  // TOGGLE (dar/quitar like en el backend)
+  // -------------------------
+  async function handleClick(e) {
+    const btn = e.currentTarget;
+    const id = btn.getAttribute("data-id");
+    if (!id) return;
+
+    btn.disabled = true; // evita doble click mientras responde el servidor
+
+    try {
+      const res = await api(`/api/stories/likes/toggle`, {
+        method: "POST",
+        body: JSON.stringify({ idStories: Number(id) })
+      });
+
+      if (!res || !res.ok) throw new Error("Error al procesar el like");
+
+      const data = await res.json();
+      updateUI(btn, data);
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo procesar el like");
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   // -------------------------
   // INIT
   // -------------------------
-  function init(selector) {
-    load();
-
+  async function init(selector) {
     const buttons = document.querySelectorAll(selector);
 
-    buttons.forEach((btn) => {
-      const id = btn.getAttribute("data-id");
-      if (!id) return;
-
-      // Si no existe en storage, inicializa desde DOM UNA SOLA VEZ
-      if (!state[id]) {
-        const counter = btn.querySelector(".like-count");
-
-        state[id] = {
-          liked: false,
-          count: parseInt(counter?.textContent || 0),
-        };
-      }
-
-      // render inicial
-      updateUI(btn, state[id]);
-
-      // click handler
-      btn.addEventListener("click", () => {
-        const newState = toggle(id);
-        updateUI(btn, newState);
-      });
-    });
+    for (const btn of buttons) {
+      await loadInitialState(btn);
+      btn.removeEventListener("click", handleClick);
+      btn.addEventListener("click", handleClick);
+    }
   }
 
-  return {
-    init,
-    toggle,
-    get,
-  };
+  return { init };
 })();

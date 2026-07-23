@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 public class FileController {
 
     private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
+    //Ruta para pruebas locales
+//private static final String UPLOAD_DIR = "uploads";
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
