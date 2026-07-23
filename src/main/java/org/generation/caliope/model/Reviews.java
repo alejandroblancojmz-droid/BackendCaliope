@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"stories_id", "users_id"})
-})
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -28,19 +28,17 @@ public class Reviews {
     @Max(5)
     private Integer rate;
 
-    @NotBlank
-    private String review;
+    @NotBlank private String review;
 
     @NotNull
     private LocalDateTime creation;
 
+    //Declaracion del dependencia con Users
     @ManyToOne
     @JoinColumn(name = "users_id", nullable = false)
     @JsonIgnore
     private Users users;
 
-    @ManyToOne
-    @JoinColumn(name = "stories_id", nullable = false)
-    @JsonIgnore
-    private Stories stories;
+
+
 }

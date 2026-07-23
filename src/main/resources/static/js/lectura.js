@@ -1,5 +1,3 @@
-import { api } from "./api.js";
-
 document.addEventListener("DOMContentLoaded", () => {
     const carouselElement = document.querySelector("#readingCarousel");
     const carouselItems = carouselElement.querySelectorAll(".carousel-item");
@@ -153,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    publishReviewButton.addEventListener("click", async () => {
+    publishReviewButton.addEventListener("click", () => {
         const reviewContent = reviewText.value.trim();
 
         if (selectedStars === 0) {
@@ -166,46 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (!storyId) {
-            alert("No se pudo identificar la historia a reseñar.");
-            return;
-        }
+        alert("Reseña publicada correctamente.");
 
-        publishReviewButton.disabled = true;
-
-        try {
-            const res = await api("/api/reviews", {
-                method: "POST",
-                body: JSON.stringify({
-                    idStories: Number(storyId),
-                    rate: selectedStars,
-                    review: reviewContent
-                })
-            });
-
-            if (!res || !res.ok) {
-                let mensaje = "Error al publicar la reseña.";
-                try {
-                    const errorData = await res.json();
-                    if (errorData?.message) mensaje = errorData.message;
-                } catch {}
-                throw new Error(mensaje);
-            }
-
-            alert("Reseña publicada correctamente.");
-
-            reviewText.value = "";
-            selectedStars = 0;
-            reviewStars.forEach((star) => {
-                star.querySelector("i").className = "bi bi-star";
-            });
-
-        } catch (error) {
-            console.error(error);
-            alert(error.message || "No se pudo publicar la reseña.");
-        } finally {
-            publishReviewButton.disabled = false;
-        }
+        console.log("Estrellas:", selectedStars);
+        console.log("Reseña:", reviewContent);
+        reviewText.value = "";
+        
     });
 
     if (story && story.currentPage > 1 && story.status === "reading") {
