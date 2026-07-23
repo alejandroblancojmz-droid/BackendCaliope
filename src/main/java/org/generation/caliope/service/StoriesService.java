@@ -33,7 +33,8 @@ public class StoriesService {
     private final FileStorageService fileStorageService;
 
     // Directorio donde se guardarán los archivos
-    private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
+    //private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
+    private static final String UPLOAD_DIR = "uploads";
 
 
     public Stories addStories(StoriesRequest storiesRequest) throws IOException {

@@ -120,7 +120,6 @@ public class UsersService {
                 Files.createDirectories(uploadPath);
             }
 
-            // Guardar archivo
             String fileName = UUID.randomUUID().toString() + "_" + avatar.getOriginalFilename();
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(avatar.getInputStream(), filePath);
