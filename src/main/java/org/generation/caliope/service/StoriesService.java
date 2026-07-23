@@ -32,9 +32,11 @@ public class StoriesService {
     private final GenresRepository genresRepository;
     private final FileStorageService fileStorageService;
 
-    // Directorio donde se guardarán los archivos
+    // Directorio donde se guardarán los archivos (Deploy)
     private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
 
+////    //Directorio donde se guardarán los archivos (LocalHost)
+//    private static final String UPLOAD_DIR = "uploads";
 
     public Stories addStories(StoriesRequest storiesRequest) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
