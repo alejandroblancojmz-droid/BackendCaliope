@@ -16,8 +16,10 @@ import java.nio.file.Paths;
 @CrossOrigin(origins = "*")
 public class FileController {
 
+
     //private static final String UPLOAD_DIR = "/home/ubuntu/src/uploads";
     private static final String UPLOAD_DIR = "uploads";
+
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String fileName) {

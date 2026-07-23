@@ -11,6 +11,9 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"stories_id", "users_id"})
+})
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -24,8 +27,13 @@ public class Likes {
     private LocalDate created_date;
 
     @ManyToOne
+    @JoinColumn(name = "stories_id")
     @JsonIgnore
     private Stories stories;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "users_id")
+    private Users users;
 
 }
